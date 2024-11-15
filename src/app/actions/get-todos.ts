@@ -8,7 +8,7 @@ type ResponseData = {
 }
 
 export const getTodos = async () => {
-  const url = `https://api.airtable.com/v0/${BASE_ID}/todos`
+  const url = `https://api.airtable.com/v0/${BASE_ID}/todos?sort[0][field]=completed&sort[0][direction]=desc`
   const response: ResponseData = await fetch(url, {
     headers: {
       Authorization: `Bearer ${API_KEY}`,

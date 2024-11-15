@@ -1,4 +1,6 @@
 import { getTodos } from "@/app/actions/get-todos"
+import { cn } from "@/lib/utils"
+import { Square, SquareCheck, Trash } from "lucide-react"
 import { List } from "./list"
 
 export const TodoList = async () => {
@@ -21,8 +23,17 @@ const Item = ({ data }: ItemProps) => {
 
   return (
     <div className="flex items-center gap-4">
-      <input type="checkbox" defaultChecked={completed} />
-      <p>{item}</p>
+      <button type="button">
+        {completed ? (
+          <SquareCheck className="size-5" />
+        ) : (
+          <Square className="size-5" />
+        )}
+      </button>
+      <p className={cn("grow", !completed || "line-through")}>{item}</p>
+      <button type="button">
+        <Trash className="size-5" />
+      </button>
     </div>
   )
 }

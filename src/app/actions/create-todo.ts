@@ -1,5 +1,7 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
+
 const API_KEY = process.env.AIRTABLE_API_KEY!
 const BASE_ID = process.env.AIRTABLE_BASE_ID!
 
@@ -17,6 +19,8 @@ export const createTodo = async (item: string) => {
       fields: { item },
     }),
   }).then((res) => res.json())
+
+  revalidatePath("/")
 
   return response
 }
