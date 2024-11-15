@@ -21,7 +21,7 @@ const Item = ({ data }: ItemProps) => {
 
   return (
     <div className="flex items-center gap-4">
-      <input type="checkbox" checked={!!completed} />
+      <input type="checkbox" defaultChecked={completed} />
       <p>{item}</p>
     </div>
   )
