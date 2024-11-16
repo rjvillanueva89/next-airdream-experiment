@@ -1,4 +1,4 @@
-import { getTodos } from "@/app/actions/get-todos"
+import { getTodos } from "@/actions/get-todos"
 import { cn } from "@/lib/utils"
 import { Square, SquareCheck, Trash } from "lucide-react"
 import { List } from "./list"
@@ -18,8 +18,8 @@ interface ItemProps {
   data: Records<Todo>
 }
 
-const Item = ({ data }: ItemProps) => {
-  const { item, completed } = data.fields
+const Item = ({ data: { fields } }: ItemProps) => {
+  const { item, completed } = fields
 
   return (
     <div className="flex items-center gap-4">
