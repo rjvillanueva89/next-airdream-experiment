@@ -1,6 +1,6 @@
 "use client"
 
-import { createTodo } from "@/actions/create-todo"
+import { createTodoByPipedream } from "@/actions/create-todo-by-pipedream"
 import { PlusIcon } from "lucide-react"
 import { useState } from "react"
 import { Button } from "./ui/button"
@@ -9,7 +9,8 @@ import { Input } from "./ui/input"
 export const TodoForm = () => {
   const [value, setValue] = useState("")
   const handleSubmit = async () => {
-    await createTodo(value)
+    // await createTodo(value)
+    await createTodoByPipedream(value)
     setValue("")
   }
   return (
