@@ -1,5 +1,6 @@
 "use client"
 
+import { deleteTodo } from "@/actions/delete-todo"
 import { updateTodo } from "@/actions/update-todo"
 import { cn } from "@/lib/utils"
 import { Square, SquareCheck, Trash } from "lucide-react"
@@ -15,6 +16,10 @@ export const TodoItem = ({ data: { id, fields } }: Props) => {
     await updateTodo(id, { completed: !completed })
   }
 
+  const handleDelete = async () => {
+    await deleteTodo(id)
+  }
+
   return (
     <div className="flex items-center gap-4">
       <button type="button" onClick={handleComplete}>
@@ -25,7 +30,7 @@ export const TodoItem = ({ data: { id, fields } }: Props) => {
         )}
       </button>
       <p className={cn("grow", !completed || "line-through")}>{item}</p>
-      <button type="button">
+      <button type="button" onClick={handleDelete}>
         <Trash className="size-5" />
       </button>
     </div>
