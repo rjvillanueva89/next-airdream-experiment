@@ -4,6 +4,7 @@ import { deleteTodo } from "@/actions/delete-todo"
 import { updateTodo } from "@/actions/update-todo"
 import { cn } from "@/lib/utils"
 import { Square, SquareCheck, Trash } from "lucide-react"
+import { useTransition } from "react"
 
 interface Props {
   data: Records<Todo>
@@ -11,17 +12,27 @@ interface Props {
 
 export const TodoItem = ({ data: { id, fields } }: Props) => {
   const { item, completed } = fields
+  const [isPending, startTransition] = useTransition()
 
-  const handleComplete = async () => {
-    await updateTodo(id, { completed: !completed })
+  const handleComplete = () => {
+    startTransition(async () => {
+      await updateTodo(id, { completed: !completed })
+    })
   }
 
-  const handleDelete = async () => {
-    await deleteTodo(id)
+  const handleDelete = () => {
+    startTransition(async () => {
+      await deleteTodo(id)
+    })
   }
 
   return (
-    <div className="flex items-center gap-4">
+    <div
+      className={cn(
+        "flex items-center gap-4",
+        isPending && "opacity-25 pointer-events-none"
+      )}
+    >
       <button type="button" onClick={handleComplete}>
         {completed ? (
           <SquareCheck className="size-5" />
