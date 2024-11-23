@@ -1,17 +1,19 @@
-"use client"
+'use client'
 
-import { createTodoByPipedream } from "@/actions/create-todo-by-pipedream"
-import { PlusIcon } from "lucide-react"
-import { useState } from "react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
+import { createTodoByPipedream } from '@/actions/create-todo-by-pipedream'
+import { PlusIcon } from 'lucide-react'
+import { useState, useTransition } from 'react'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
 
 export const TodoForm = () => {
-  const [value, setValue] = useState("")
-  const handleSubmit = async () => {
-    // await createTodo(value)
-    await createTodoByPipedream(value)
-    setValue("")
+  const [value, setValue] = useState('')
+  const [isPending, startTransition] = useTransition()
+  const handleSubmit = () => {
+    startTransition(async () => {
+      await createTodoByPipedream(value)
+      setValue('')
+    })
   }
 
   return (
@@ -21,7 +23,7 @@ export const TodoForm = () => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <Button onClick={handleSubmit} disabled={!value}>
+      <Button onClick={handleSubmit} disabled={!value || isPending}>
         <PlusIcon />
       </Button>
     </div>
