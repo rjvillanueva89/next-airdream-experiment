@@ -13,6 +13,7 @@ export const TodoForm = () => {
     await createTodoByPipedream(value)
     setValue("")
   }
+
   return (
     <div className="flex items-center gap-4">
       <Input
@@ -20,7 +21,7 @@ export const TodoForm = () => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <Button onClick={handleSubmit}>
+      <Button onClick={handleSubmit} disabled={!value}>
         <PlusIcon />
       </Button>
     </div>
