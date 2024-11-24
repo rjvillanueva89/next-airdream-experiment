@@ -1,13 +1,17 @@
-"use client"
+'use client'
 
-import { deleteTodo } from "@/actions/delete-todo"
-import { updateTodo } from "@/actions/update-todo"
-import { cn } from "@/lib/utils"
-import { Square, SquareCheck, Trash } from "lucide-react"
-import { useTransition } from "react"
+import { deleteTodo } from '@/actions/delete-todo'
+import { updateTodo } from '@/actions/update-todo'
+import { cn } from '@/lib/utils'
+import { TodoRecordSchema } from '@/schema'
+import { Square, SquareCheck, Trash } from 'lucide-react'
+import { useTransition } from 'react'
+import { z } from 'zod'
+
+type TodoRecord = z.infer<typeof TodoRecordSchema>
 
 interface Props {
-  data: Records<Todo>
+  data: TodoRecord
 }
 
 export const TodoItem = ({ data: { id, fields } }: Props) => {
@@ -29,8 +33,8 @@ export const TodoItem = ({ data: { id, fields } }: Props) => {
   return (
     <div
       className={cn(
-        "flex items-center gap-4",
-        isPending && "opacity-25 pointer-events-none"
+        'flex items-center gap-4',
+        isPending && 'opacity-25 pointer-events-none'
       )}
     >
       <button type="button" onClick={handleComplete}>
@@ -40,7 +44,7 @@ export const TodoItem = ({ data: { id, fields } }: Props) => {
           <Square className="size-5" />
         )}
       </button>
-      <p className={cn("grow", !completed || "line-through")}>{item}</p>
+      <p className={cn('grow', !completed || 'line-through')}>{item}</p>
       <button type="button" onClick={handleDelete}>
         <Trash className="size-5" />
       </button>
